@@ -1,0 +1,5 @@
+set(CURRENT_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+target_sources(irl_gvm_functions PRIVATE "${CURRENT_DIR}/irl_gvm_intersection.h")
+target_sources(irl_gvm_functions PRIVATE "${CURRENT_DIR}/irl_gvm_intersection.cpp")
+target_sources(irl_gvm_functions PRIVATE "${CURRENT_DIR}/irl_gvm_distribution.h")
+target_sources(irl_gvm_functions PRIVATE "${CURRENT_DIR}/irl_gvm_distribution.cpp")

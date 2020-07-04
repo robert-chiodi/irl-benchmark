@@ -1,0 +1,7 @@
+build
+build/*
+results
+results/*
+*_timing.txt
+timing_comp
+samples.csv

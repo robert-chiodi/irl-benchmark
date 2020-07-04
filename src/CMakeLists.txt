@@ -1,0 +1,5 @@
+add_subdirectory("./timing_comp")
+add_subdirectory("./irl")
+add_subdirectory("./irl_gvm")
+add_subdirectory("./r3d")
+add_subdirectory("./voftools")
