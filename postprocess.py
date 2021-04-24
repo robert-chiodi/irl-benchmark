@@ -23,7 +23,8 @@ def readFile(filename):
 
 def processFileOutput(file_dict):
     # Scaling to convert from ncases and seconds to milliseconds per 10^6 cases.
-    scaling = 10.0**6.0/float(file_dict["irl"][0].split(" ")[0].strip())*10.0**3.0
+    print("Number of cases: "+ file_dict["irl"][0].split(" ")[0].strip())
+    scaling = 1.0
     max_planes = int(float(file_dict["irl"][0].split(" ")[1].strip()))
     for tool_name in file_dict:
         if(int(float(file_dict[tool_name][0].split(" ")[1].strip())) != max_planes):
@@ -116,7 +117,7 @@ def printToResultsFolder(case_output):
             f.close()
 
 def fT(a_number):
-    return "{0:8.0F}".format(a_number)
+    return "{0:8.3F}".format(a_number)
 
 def fTR(a_number):
     return "{0:10.2F}".format(a_number)

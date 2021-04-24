@@ -32,6 +32,7 @@ void distributeCubeOntoCubicMesh(FILE* a_distribute_file,
   Times<1> irl_gvm_times;
   std::size_t cells_entered = 0;
   double volume_error = 0.0;
+  double abs_volume_error = -DBL_MAX;
   for (int n = 0; n < a_number_of_trials; ++n) {
     const double x_shift = randomDouble();
     const double y_shift = randomDouble();
@@ -48,7 +49,11 @@ void distributeCubeOntoCubicMesh(FILE* a_distribute_file,
 
     irl_gvm_cubeOntoCubicMesh(shifted_cube.data(), &irl_gvm_volume,
                               irl_gvm_trial_time.data(), &trial_cells_entered);
-    volume_error += std::fabs(1.0 - irl_gvm_volume / total_volume);
+
+
+    const double error = std::fabs(1.0 - irl_gvm_volume / total_volume);
+    volume_error += error;
+    abs_volume_error = std::max(abs_volume_error, error);    
 
     if (!sameVolumesFound(total_volume, irl_gvm_volume)) {
       printf("Shift of %20.12e %20.12e %20.12e\n", x_shift, y_shift, z_shift);
@@ -63,10 +68,10 @@ void distributeCubeOntoCubicMesh(FILE* a_distribute_file,
     cells_entered += trial_cells_entered;
   }
   // Write out time in seconds
-  fprintf(a_distribute_file, "%19.13e %19.13e %19.13e\n",
+  fprintf(a_distribute_file, "%19.13e %19.13e %19.13e %19.13e\n",
           static_cast<double>(cells_entered) /
               static_cast<double>(a_number_of_trials),
-          volume_error / static_cast<double>(a_number_of_trials),
+          volume_error / static_cast<double>(a_number_of_trials), abs_volume_error,
           irl_gvm_times[0]);
 }
 
@@ -86,6 +91,7 @@ void distributeStelIcosahedronOntoCubicMesh(FILE* a_distribute_file,
   Times<1> irl_gvm_times;
   std::size_t cells_entered = 0;
   double volume_error = 0.0;
+  double abs_volume_error = -DBL_MAX;  
   for (int n = 0; n < a_number_of_trials; ++n) {
     const double x_shift = randomDouble();
     const double y_shift = randomDouble();
@@ -107,7 +113,9 @@ void distributeStelIcosahedronOntoCubicMesh(FILE* a_distribute_file,
         shifted_stel_icosahedron_pts.data(), &irl_gvm_volume,
         irl_gvm_trial_time.data(), &trial_cells_entered);
 
-    volume_error += std::fabs(1.0 - irl_gvm_volume / total_volume);
+    const double error = std::fabs(1.0 - irl_gvm_volume / total_volume);
+    volume_error += error;
+    abs_volume_error = std::max(abs_volume_error, error);
 
     if (!sameVolumesFound(total_volume, irl_gvm_volume)) {
       printf("Shift of %20.12e %20.12e %20.12e\n", x_shift, y_shift, z_shift);
@@ -117,10 +125,10 @@ void distributeStelIcosahedronOntoCubicMesh(FILE* a_distribute_file,
     cells_entered += trial_cells_entered;
   }
   // Write out time in seconds
-  fprintf(a_distribute_file, "%19.13e %19.13e %19.13e\n",
+  fprintf(a_distribute_file, "%19.13e %19.13e %19.13e %19.13e\n",
           static_cast<double>(cells_entered) /
               static_cast<double>(a_number_of_trials),
-          volume_error / static_cast<double>(a_number_of_trials),
+          volume_error / static_cast<double>(a_number_of_trials), abs_volume_error,
           irl_gvm_times[0]);
 }
 
@@ -134,6 +142,7 @@ void distributeCubeOntoTetMesh(FILE* a_distribute_file,
   Times<1> irl_gvm_times;
   std::size_t cells_entered = 0;
   double volume_error = 0.0;
+  double abs_volume_error = -DBL_MAX;  
   for (int n = 0; n < a_number_of_trials; ++n) {
     const double x_shift = randomDouble();
     const double y_shift = randomDouble();
@@ -151,7 +160,9 @@ void distributeCubeOntoTetMesh(FILE* a_distribute_file,
     irl_gvm_cubeOntoTetMesh(shifted_cube.data(), &irl_gvm_volume,
                             irl_gvm_trial_time.data(), &trial_cells_entered);
 
-    volume_error += std::fabs(1.0 - irl_gvm_volume / total_volume);
+    const double error = std::fabs(1.0 - irl_gvm_volume / total_volume);
+    volume_error += error;
+    abs_volume_error = std::max(abs_volume_error, error);
 
     if (!sameVolumesFound(total_volume, irl_gvm_volume)) {
       printf("Shift of %20.12e %20.12e %20.12e\n", x_shift, y_shift, z_shift);
@@ -166,10 +177,10 @@ void distributeCubeOntoTetMesh(FILE* a_distribute_file,
     cells_entered += trial_cells_entered;
   }
   // Write out time in seconds
-  fprintf(a_distribute_file, "%19.13e %19.13e %19.13e\n",
+  fprintf(a_distribute_file, "%19.13e %19.13e %19.13e %19.13e\n",
           static_cast<double>(cells_entered) /
               static_cast<double>(a_number_of_trials),
-          volume_error / static_cast<double>(a_number_of_trials),
+          volume_error / static_cast<double>(a_number_of_trials), abs_volume_error,
           irl_gvm_times[0]);
 }
 
@@ -189,6 +200,7 @@ void distributeStelIcosahedronOntoTetMesh(FILE* a_distribute_file,
   Times<1> irl_gvm_times;
   std::size_t cells_entered = 0;
   double volume_error = 0.0;
+  double abs_volume_error = -DBL_MAX;  
   for (int n = 0; n < a_number_of_trials; ++n) {
     const double x_shift = randomDouble();
     const double y_shift = randomDouble();
@@ -209,7 +221,9 @@ void distributeStelIcosahedronOntoTetMesh(FILE* a_distribute_file,
         shifted_stel_icosahedron_pts.data(), &irl_gvm_volume,
         irl_gvm_trial_time.data(), &trial_cells_entered);
 
-    volume_error += std::fabs(1.0 - irl_gvm_volume / total_volume);
+    const double error = std::fabs(1.0 - irl_gvm_volume / total_volume);
+    volume_error += error;
+    abs_volume_error = std::max(abs_volume_error, error);
 
     if (!sameVolumesFound(total_volume, irl_gvm_volume)) {
       printf("Shift of %20.12e %20.12e %20.12e\n", x_shift, y_shift, z_shift);
@@ -219,10 +233,10 @@ void distributeStelIcosahedronOntoTetMesh(FILE* a_distribute_file,
     cells_entered += trial_cells_entered;
   }
   // Write out time in seconds
-  fprintf(a_distribute_file, "%19.13e %19.13e %19.13e\n",
+  fprintf(a_distribute_file, "%19.13e %19.13e %19.13e %19.13e\n",
           static_cast<double>(cells_entered) /
               static_cast<double>(a_number_of_trials),
-          volume_error / static_cast<double>(a_number_of_trials),
+          volume_error / static_cast<double>(a_number_of_trials), abs_volume_error,
           irl_gvm_times[0]);
 }
 
@@ -236,6 +250,7 @@ void distributeCubeOntoSphericalCartesianMesh(FILE* a_distribute_file,
   Times<1> irl_gvm_times;
   std::size_t cells_entered = 0;
   double volume_error = 0.0;
+  double abs_volume_error = -DBL_MAX;  
   for (int n = 0; n < a_number_of_trials; ++n) {
     const double x_shift = randomDouble();
     const double y_shift = randomDouble();
@@ -254,7 +269,9 @@ void distributeCubeOntoSphericalCartesianMesh(FILE* a_distribute_file,
                                            irl_gvm_trial_time.data(),
                                            &trial_cells_entered);
 
-    volume_error += std::fabs(1.0 - irl_gvm_volume / total_volume);
+    const double error = std::fabs(1.0 - irl_gvm_volume / total_volume);
+    volume_error += error;
+    abs_volume_error = std::max(abs_volume_error, error);
 
     if (!sameVolumesFound(total_volume, irl_gvm_volume)) {
       printf("Shift of %20.12e %20.12e %20.12e\n", x_shift, y_shift, z_shift);
@@ -269,10 +286,10 @@ void distributeCubeOntoSphericalCartesianMesh(FILE* a_distribute_file,
     cells_entered += trial_cells_entered;
   }
   // Write out time in seconds
-  fprintf(a_distribute_file, "%19.13e %19.13e %19.13e\n",
+  fprintf(a_distribute_file, "%19.13e %19.13e %19.13e %19.13e\n",
           static_cast<double>(cells_entered) /
               static_cast<double>(a_number_of_trials),
-          volume_error / static_cast<double>(a_number_of_trials),
+          volume_error / static_cast<double>(a_number_of_trials), abs_volume_error,
           irl_gvm_times[0]);
 }
 
@@ -292,6 +309,7 @@ void distributeStelIcosahedronOntoSphericalCartesianMesh(
   Times<1> irl_gvm_times;
   std::size_t cells_entered = 0;
   double volume_error = 0.0;
+  double abs_volume_error = -DBL_MAX;
   for (int n = 0; n < a_number_of_trials; ++n) {
     const double x_shift = randomDouble();
     const double y_shift = randomDouble();
@@ -312,7 +330,9 @@ void distributeStelIcosahedronOntoSphericalCartesianMesh(
         shifted_stel_icosahedron_pts.data(), &irl_gvm_volume,
         irl_gvm_trial_time.data(), &trial_cells_entered);
 
-    volume_error += std::fabs(1.0 - irl_gvm_volume / total_volume);
+    const double error = std::fabs(1.0 - irl_gvm_volume / total_volume);
+    volume_error += error;
+    abs_volume_error = std::max(abs_volume_error, error);
 
     if (!sameVolumesFound(total_volume, irl_gvm_volume)) {
       printf("Shift of %20.12e %20.12e %20.12e\n", x_shift, y_shift, z_shift);
@@ -322,9 +342,9 @@ void distributeStelIcosahedronOntoSphericalCartesianMesh(
     cells_entered += trial_cells_entered;
   }
   // Write out time in seconds
-  fprintf(a_distribute_file, "%19.13e %19.13e %19.13e\n",
+  fprintf(a_distribute_file, "%19.13e %19.13e %19.13e %19.13e\n",
           static_cast<double>(cells_entered) /
               static_cast<double>(a_number_of_trials),
-          volume_error / static_cast<double>(a_number_of_trials),
+          volume_error / static_cast<double>(a_number_of_trials), abs_volume_error,
           irl_gvm_times[0]);
 }

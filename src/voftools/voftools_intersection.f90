@@ -32,6 +32,9 @@ contains
        ! Multiply normal by -1.0 due to difference in convention.
        ! Makes consistent with IRL convention       
        call VOFtools_INTE3D_wrapper(poly, [-a_planes(p*4+1:p*4+3),a_planes(p*4+4)])
+       if(poly%NTS == 0) then
+          exit
+       end if        
     end do
     end = omp_get_wtime() 
     a_times(2) = end - start
@@ -69,6 +72,9 @@ contains
        ! Multiply normal by -1.0 due to difference in convention.
        ! Makes consistent with IRL convention       
        call VOFtools_INTE3D_wrapper(poly, [-a_planes(p*4+1:p*4+3),a_planes(p*4+4)])
+       if(poly%NTS == 0) then
+          exit
+       end if        
     end do
     end = omp_get_wtime() 
     a_times(2) = end - start
@@ -106,6 +112,9 @@ contains
        ! Multiply normal by -1.0 due to difference in convention.
        ! Makes consistent with IRL convention       
        call VOFtools_INTE3D_wrapper(poly, [-a_planes(p*4+1:p*4+3),a_planes(p*4+4)])
+       if(poly%NTS == 0) then
+          exit
+       end if        
     end do
     end = omp_get_wtime() 
     a_times(2) = end - start
@@ -143,6 +152,9 @@ contains
        ! Multiply normal by -1.0 due to difference in convention.
        ! Makes consistent with IRL convention       
        call VOFtools_INTE3D_wrapper(poly, [-a_planes(p*4+1:p*4+3),a_planes(p*4+4)])
+       if(poly%NTS == 0) then
+          exit
+       end if        
     end do
     end = omp_get_wtime() 
     a_times(2) = end - start
@@ -180,6 +192,9 @@ contains
        ! Multiply normal by -1.0 due to difference in convention.
        ! Makes consistent with IRL convention       
        call VOFtools_INTE3D_wrapper(poly, [-a_planes(p*4+1:p*4+3),a_planes(p*4+4)])
+       if(poly%NTS == 0) then
+          exit
+       end if        
     end do
     end = omp_get_wtime() 
     a_times(2) = end - start
@@ -217,6 +232,9 @@ contains
        ! Multiply normal by -1.0 due to difference in convention.
        ! Makes consistent with IRL convention       
        call VOFtools_INTE3D_wrapper(poly, [-a_planes(p*4+1:p*4+3),a_planes(p*4+4)])
+       if(poly%NTS == 0) then
+          exit
+       end if        
     end do
     end = omp_get_wtime() 
     a_times(2) = end - start
@@ -254,6 +272,9 @@ contains
        ! Multiply normal by -1.0 due to difference in convention.
        ! Makes consistent with IRL convention       
        call VOFtools_INTE3D_wrapper(poly, [-a_planes(p*4+1:p*4+3),a_planes(p*4+4)])
+       if(poly%NTS == 0) then
+          exit
+       end if        
     end do
     end = omp_get_wtime() 
     a_times(2) = end - start
@@ -292,6 +313,9 @@ contains
        ! Multiply normal by -1.0 due to difference in convention.
        ! Makes consistent with IRL convention       
        call VOFtools_INTE3D_wrapper(poly, [-a_planes(p*4+1:p*4+3),a_planes(p*4+4)])
+       if(poly%NTS == 0) then
+          exit
+       end if        
     end do
     end = omp_get_wtime() 
     a_times(2) = end - start
@@ -329,6 +353,9 @@ contains
        ! Multiply normal by -1.0 due to difference in convention.
        ! Makes consistent with IRL convention       
        call VOFtools_INTE3D_wrapper(poly, [-a_planes(p*4+1:p*4+3),a_planes(p*4+4)])
+       if(poly%NTS == 0) then
+          exit
+       end if       
     end do
     
     a_volume = VOFtools_TOOLV3D_wrapper(poly)
@@ -360,6 +387,9 @@ contains
        ! Multiply normal by -1.0 due to difference in convention.
        ! Makes consistent with IRL convention       
        call VOFtools_INTE3D_wrapper(poly, [-a_planes(p*4+1:p*4+3),a_planes(p*4+4)])
+       if(poly%NTS == 0) then
+          exit
+       end if        
     end do
 
     a_volume = VOFtools_TOOLV3D_wrapper(poly)
@@ -391,6 +421,9 @@ contains
        ! Multiply normal by -1.0 due to difference in convention.
        ! Makes consistent with IRL convention       
        call VOFtools_INTE3D_wrapper(poly, [-a_planes(p*4+1:p*4+3),a_planes(p*4+4)])
+       if(poly%NTS == 0) then
+          exit
+       end if        
     end do
 
     a_volume = VOFtools_TOOLV3D_wrapper(poly)
@@ -422,6 +455,9 @@ contains
        ! Multiply normal by -1.0 due to difference in convention.
        ! Makes consistent with IRL convention       
        call VOFtools_INTE3D_wrapper(poly, [-a_planes(p*4+1:p*4+3),a_planes(p*4+4)])
+       if(poly%NTS == 0) then
+          exit
+       end if        
     end do
 
     a_volume = VOFtools_TOOLV3D_wrapper(poly)
@@ -453,6 +489,9 @@ contains
        ! Multiply normal by -1.0 due to difference in convention.
        ! Makes consistent with IRL convention       
        call VOFtools_INTE3D_wrapper(poly, [-a_planes(p*4+1:p*4+3),a_planes(p*4+4)])
+       if(poly%NTS == 0) then
+          exit
+       end if        
     end do
 
     a_volume = VOFtools_TOOLV3D_wrapper(poly)
@@ -484,6 +523,9 @@ contains
        ! Multiply normal by -1.0 due to difference in convention.
        ! Makes consistent with IRL convention       
        call VOFtools_INTE3D_wrapper(poly, [-a_planes(p*4+1:p*4+3),a_planes(p*4+4)])
+       if(poly%NTS == 0) then
+          exit
+       end if        
     end do
 
     a_volume = VOFtools_TOOLV3D_wrapper(poly)
@@ -515,6 +557,9 @@ contains
        ! Multiply normal by -1.0 due to difference in convention.
        ! Makes consistent with IRL convention       
        call VOFtools_INTE3D_wrapper(poly, [-a_planes(p*4+1:p*4+3),a_planes(p*4+4)])
+       if(poly%NTS == 0) then
+          exit
+       end if        
     end do
 
     a_volume = VOFtools_TOOLV3D_wrapper(poly)
@@ -547,6 +592,9 @@ contains
        ! Multiply normal by -1.0 due to difference in convention.
        ! Makes consistent with IRL convention       
        call VOFtools_INTE3D_wrapper(poly, [-a_planes(p*4+1:p*4+3),a_planes(p*4+4)])
+       if(poly%NTS == 0) then
+          exit
+       end if        
     end do
 
     a_volume = VOFtools_TOOLV3D_wrapper(poly)

@@ -25,17 +25,17 @@ contains
 
     call INTE3D(plane(4),ICONTN,ICONTP,poly%IPV,poly%NIPV,poly%NTP,poly%NTS,poly%NTV, &
          poly%VERTP,plane(1),poly%NORMAL(:,1),plane(2),poly%NORMAL(:,2),plane(3),poly%NORMAL(:,3))
+    
     ! VOFTools does not set number of polyhedron faces/verts to 0
     ! if it is entirely above the clipping plane, so do that here.
     ! This will make sure subsequent volume calculations on this
-    ! entirely polyhedron will be 0.
+    ! entire polyhedron will be 0.
     if(ICONTP == 0) then
        poly%NTS = 0
        poly%NTV = 0
        poly%NTP = 0
     end if
-       
-    
+           
   end subroutine VOFtools_INTE3D_wrapper
 
   function VOFtools_TOOLV3D_wrapper(poly) result(volume)
@@ -59,6 +59,17 @@ contains
     return
     
   end function cross_product
+
+  pure function vec3_norm(vector) result(mag_value)
+    implicit none
+
+    real(r8), intent(in) :: vector(3)
+    real(r8) :: mag_value
+
+    mag_value = sqrt(vector(1)*vector(1)+vector(2)*vector(2)+vector(3)*vector(3))
+
+    return
+  end function vec3_norm
 
   subroutine make_prism(poly, a_pts)
     implicit none
@@ -89,15 +100,12 @@ contains
 
     ! Calculate and set normal for each face
     do f = 1, poly%NTS
-       face_normal = 0.0_r8
-       do n = 1, poly%NIPV(f)-2 ! Triangulate and calculate normal
-          tri(1) = poly%IPV(f,1)
-          tri(2) = poly%IPV(f,n+1)
-          tri(3) = poly%IPV(f,n+2)
-          face_normal = face_normal + cross_product(poly%VERTP(tri(2),:)-poly%VERTP(tri(1),:), &
-                                                    poly%VERTP(tri(3),:)-poly%VERTP(tri(1),:)  )  
-       end do
-       poly%NORMAL(f,1:3) = face_normal / norm2(face_normal)
+       tri(1) = poly%IPV(f,1)
+       tri(2) = poly%IPV(f,2)
+       tri(3) = poly%IPV(f,3)
+       face_normal =  cross_product(poly%VERTP(tri(2),:)-poly%VERTP(tri(1),:), &
+                                    poly%VERTP(tri(3),:)-poly%VERTP(tri(1),:)  )  
+       poly%NORMAL(f,1:3) = face_normal / vec3_norm(face_normal)       
     end do
     
   end subroutine make_prism
@@ -124,14 +132,14 @@ contains
     poly%IPV(6,1:4) = [8,7,6,5]        
 
     ! Copy over vertex locations
-    poly%VERTP(1,:) = [a_cuboid_pts(4),a_cuboid_pts(2), a_cuboid_pts(3)]
-    poly%VERTP(2,:) = [a_cuboid_pts(4),a_cuboid_pts(5), a_cuboid_pts(3)]
-    poly%VERTP(3,:) = [a_cuboid_pts(4),a_cuboid_pts(5), a_cuboid_pts(6)]
-    poly%VERTP(4,:) = [a_cuboid_pts(4),a_cuboid_pts(2), a_cuboid_pts(6)]
-    poly%VERTP(5,:) = [a_cuboid_pts(1),a_cuboid_pts(2), a_cuboid_pts(3)]
-    poly%VERTP(6,:) = [a_cuboid_pts(1),a_cuboid_pts(5), a_cuboid_pts(3)]
-    poly%VERTP(7,:) = [a_cuboid_pts(1),a_cuboid_pts(5), a_cuboid_pts(6)]
-    poly%VERTP(8,:) = [a_cuboid_pts(1),a_cuboid_pts(2), a_cuboid_pts(6)]        
+    poly%VERTP(1,:) = [a_cuboid_pts(4), a_cuboid_pts(2), a_cuboid_pts(3)]
+    poly%VERTP(2,:) = [a_cuboid_pts(4), a_cuboid_pts(5), a_cuboid_pts(3)]
+    poly%VERTP(3,:) = [a_cuboid_pts(4), a_cuboid_pts(5), a_cuboid_pts(6)]
+    poly%VERTP(4,:) = [a_cuboid_pts(4), a_cuboid_pts(2), a_cuboid_pts(6)]
+    poly%VERTP(5,:) = [a_cuboid_pts(1), a_cuboid_pts(2), a_cuboid_pts(3)]
+    poly%VERTP(6,:) = [a_cuboid_pts(1), a_cuboid_pts(5), a_cuboid_pts(3)]
+    poly%VERTP(7,:) = [a_cuboid_pts(1), a_cuboid_pts(5), a_cuboid_pts(6)]
+    poly%VERTP(8,:) = [a_cuboid_pts(1), a_cuboid_pts(2), a_cuboid_pts(6)]        
 
     ! Calculate and set normal for each face
     poly%NORMAL(1,:) = [1.0, 0.0, 0.0]
@@ -174,15 +182,12 @@ contains
 
     ! Calculate and set normal for each face
     do f = 1, poly%NTS
-       face_normal = 0.0_r8
-       do n = 1, poly%NIPV(f)-2 ! Triangulate and calculate normal
-          tri(1) = poly%IPV(f,1)
-          tri(2) = poly%IPV(f,n+1)
-          tri(3) = poly%IPV(f,n+2)
-          face_normal = face_normal + cross_product(poly%VERTP(tri(2),:)-poly%VERTP(tri(1),:), &
-               poly%VERTP(tri(3),:)-poly%VERTP(tri(1),:)  )  
-       end do
-       poly%NORMAL(f,1:3) = face_normal / norm2(face_normal)
+       tri(1) = poly%IPV(f,1)
+       tri(2) = poly%IPV(f,2)
+       tri(3) = poly%IPV(f,3)
+       face_normal =  cross_product(poly%VERTP(tri(2),:)-poly%VERTP(tri(1),:), &
+                                    poly%VERTP(tri(3),:)-poly%VERTP(tri(1),:)  )  
+       poly%NORMAL(f,1:3) = face_normal / vec3_norm(face_normal)       
     end do
 
   end subroutine make_tri_prism
@@ -223,15 +228,12 @@ contains
 
     ! Calculate and set normal for each face
     do f = 1, poly%NTS
-       face_normal = 0.0_r8
-       do n = 1, poly%NIPV(f)-2 ! Triangulate and calculate normal
-          tri(1) = poly%IPV(f,1)
-          tri(2) = poly%IPV(f,n+1)
-          tri(3) = poly%IPV(f,n+2)
-          face_normal = face_normal + cross_product(poly%VERTP(tri(2),:)-poly%VERTP(tri(1),:), &
-               poly%VERTP(tri(3),:)-poly%VERTP(tri(1),:)  )  
-       end do
-       poly%NORMAL(f,1:3) = face_normal / norm2(face_normal)
+       tri(1) = poly%IPV(f,1)
+       tri(2) = poly%IPV(f,2)
+       tri(3) = poly%IPV(f,3)
+       face_normal =  cross_product(poly%VERTP(tri(2),:)-poly%VERTP(tri(1),:), &
+                                    poly%VERTP(tri(3),:)-poly%VERTP(tri(1),:)  )  
+       poly%NORMAL(f,1:3) = face_normal / vec3_norm(face_normal)       
     end do
 
   end subroutine make_tri_hex
@@ -277,15 +279,12 @@ contains
 
     ! Calculate and set normal for each face
     do f = 1, poly%NTS
-       face_normal = 0.0_r8
-       do n = 1, poly%NIPV(f)-2 ! Triangulate and calculate normal
-          tri(1) = poly%IPV(f,1)
-          tri(2) = poly%IPV(f,n+1)
-          tri(3) = poly%IPV(f,n+2)
-          face_normal = face_normal + cross_product(poly%VERTP(tri(2),:)-poly%VERTP(tri(1),:), &
-               poly%VERTP(tri(3),:)-poly%VERTP(tri(1),:)  )  
-       end do
-       poly%NORMAL(f,1:3) = face_normal / norm2(face_normal)
+       tri(1) = poly%IPV(f,1)
+       tri(2) = poly%IPV(f,2)
+       tri(3) = poly%IPV(f,3)
+       face_normal =  cross_product(poly%VERTP(tri(2),:)-poly%VERTP(tri(1),:), &
+                                    poly%VERTP(tri(3),:)-poly%VERTP(tri(1),:)  )  
+       poly%NORMAL(f,1:3) = face_normal / vec3_norm(face_normal)       
     end do
 
   end subroutine make_sym_prism
@@ -339,16 +338,13 @@ contains
 
     ! Calculate and set normal for each face
     do f = 1, poly%NTS
-       face_normal = 0.0_r8
-       do n = 1, poly%NIPV(f)-2 ! Triangulate and calculate normal
-          tri(1) = poly%IPV(f,1)
-          tri(2) = poly%IPV(f,n+1)
-          tri(3) = poly%IPV(f,n+2)
-          face_normal = face_normal + cross_product(poly%VERTP(tri(2),:)-poly%VERTP(tri(1),:), &
-               poly%VERTP(tri(3),:)-poly%VERTP(tri(1),:)  )  
-       end do
-       poly%NORMAL(f,1:3) = face_normal / norm2(face_normal)
-    end do    
+       tri(1) = poly%IPV(f,1)
+       tri(2) = poly%IPV(f,2)
+       tri(3) = poly%IPV(f,3)
+       face_normal =  cross_product(poly%VERTP(tri(2),:)-poly%VERTP(tri(1),:), &
+                                    poly%VERTP(tri(3),:)-poly%VERTP(tri(1),:)  )  
+       poly%NORMAL(f,1:3) = face_normal / vec3_norm(face_normal)       
+    end do
     
   end subroutine make_sym_hex
 

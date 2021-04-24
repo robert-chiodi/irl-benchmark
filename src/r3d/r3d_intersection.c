@@ -69,18 +69,6 @@ void r3d_prismByPlanes(const double *a_prism_pts,
       verts[p].xyz[d] = a_prism_pts[p*3+d];
     }
   }
-  
-  r3d_int **faces = malloc(nface*sizeof(r3d_int*)); 
-  for (r3d_int f = 0; f < nface; ++f){
-    faces[f] = malloc(verts_per_face[f]*sizeof(r3d_int));
-  }
-  r3d_int ind = 0;
-  for(r3d_int f = 0; f < nface; ++f){
-    for(r3d_int v = 0; v < verts_per_face[f]; ++v){
-      faces[f][v] = face_flat[ind];
-      ++ind;
-    }
-  }  
 
   // Multiply normal by -1.0 due to difference in convention.
   // Makes consistent with IRL convention     
@@ -785,18 +773,6 @@ void r3d_prismByPlanes_total(const double *a_prism_pts,
     }
   }
   
-  r3d_int **faces = malloc(nface*sizeof(r3d_int*)); 
-  for (r3d_int f = 0; f < nface; ++f){
-    faces[f] = malloc(verts_per_face[f]*sizeof(r3d_int));
-  }
-  r3d_int ind = 0;
-  for(r3d_int f = 0; f < nface; ++f){
-    for(r3d_int v = 0; v < verts_per_face[f]; ++v){
-      faces[f][v] = face_flat[ind];
-      ++ind;
-    }
-  }  
-
   // Multiply normal by -1.0 due to difference in convention.
   // Makes consistent with IRL convention     
   r3d_plane planes[a_number_of_planes];
@@ -813,7 +789,7 @@ void r3d_prismByPlanes_total(const double *a_prism_pts,
   r3d_clip(&poly, planes, a_number_of_planes);
   r3d_reduce(&poly, a_volume, 0);  
   double end = omp_get_wtime();
-  a_times[0] = end - start;  
+  a_times[0] = end - start;
 }
 
 void r3d_unitCubeByPlanes_total(const double *a_cube_pts,

@@ -3,5 +3,5 @@ build/*
 results
 results/*
 *_timing.txt
-timing_comp
+./timing_comp
 samples.csv
