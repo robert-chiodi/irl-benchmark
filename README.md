@@ -12,7 +12,7 @@ Once `config.cmake` is properly modified, the benchmarks can be built by executi
 which will perform an out of source build and place the executable `timing_comp` in the root directory.
 
 # Running the Benchmarks
-The executable `timing_comp` expects three command-line arguments (as integers) to be supplied to it. They are (in this order):
+The executable `timing_comp` expects four command-line arguments (as integers) to be supplied to it. They are (in this order):
 
  1. The type of results to be generated, chosen by an integer in the range [0,2]
 
