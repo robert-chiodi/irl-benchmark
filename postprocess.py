@@ -136,31 +136,31 @@ def printLatexTables(max_planes, initialization_comp, intersection_comp, volume_
                                  fT(total_comp["irl"][case][1]) + " & " +
                                  fT(total_comp["r3d"][case][1]) + " & " +
                                  fT(total_comp["voftools"][case][1]) +
-                                 "\\\\ \hline")                               
+                                 "\\\\")                               
         
         output["total_rel"][case] = (case + " & " +
                                      fTR(total_comp["irl"][case][1]/total_comp["irl"][case][1]) + " & " +
                                      fTR(total_comp["r3d"][case][1]/total_comp["irl"][case][1]) + " & " +
                                      fTR(total_comp["voftools"][case][1]/total_comp["irl"][case][1]) +
-                                     "\\\\ \hline")        
+                                     "\\\\")        
         
         output["initialization"][case] = (case + " & " +
                                           fT(initialization_comp["irl"][case][1]) + " & " +
                                           fT(initialization_comp["r3d"][case][1]) + " & " +
                                           fT(initialization_comp["voftools"][case][1]) +
-                                          "\\\\ \hline")                                        
+                                          "\\\\")                                        
         
         output["intersection"][case] = (case + " & " +
                                         fT(intersection_comp["irl"][case][1]) + " & " +
                                         fT(intersection_comp["r3d"][case][1]) + " & " +
                                         fT(intersection_comp["voftools"][case][1]) +
-                                        "\\\\ \hline")                                        
+                                        "\\\\")                                        
         
         output["volume"][case] = (case + " & " +
                                   fT(volume_comp["irl"][case][1]) + " & " +
                                   fT(volume_comp["r3d"][case][1]) + " & " +
                                   fT(volume_comp["voftools"][case][1]) +
-                                  "\\\\ \hline")                                        
+                                  "\\\\")                                        
     
     nplane_cases = ["Unit Cube","Triangulated Hexahedron", "Symmetric Hexahedron"]
     output["multiple_plane"] = {}

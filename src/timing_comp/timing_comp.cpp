@@ -27,9 +27,9 @@
 int main(int argc, char** argv) {
   printf("Timing with precision %16.8e\n", omp_get_wtick());
 
-  if (argc != 4) {
+  if (argc != 5) {
     std::cout << "Inproper usage of command-line arguments" << std::endl;
-    std::cout << "Three arguments should be supplied. They are:" << std::endl;
+    std::cout << "Four arguments should be supplied. They are:" << std::endl;
     std::cout << "1 -- Results to generate (chosen by integer): " << std::endl;
     std::cout << "     Sample file of interface planes (0)" << std::endl;
     std::cout << "     Plane intersections with polyhedra (1)" << std::endl;
@@ -39,6 +39,10 @@ int main(int argc, char** argv) {
         << "3 -- Max number of planes to intersect at one time (integer >0)\n"
         << "     Note: This only has an effect if the first input on CLI is 1"
         << std::endl;
+    std::cout
+        << "4 -- Whether to produce section timings (0), total timings (1), or both (2)\n"
+        << "     Note: This only has an effect if the first input on CLI is 1"
+	<< std::endl;
     return -1;
   }
 
@@ -46,6 +50,7 @@ int main(int argc, char** argv) {
   const int case_number = std::stoi(std::string(argv[1]));
   const int number_of_trials = std::stoi(std::string(argv[2]));
   const int max_planes = std::stoi(std::string(argv[3]));
+  const int timings_to_produce =  std::stoi(std::string(argv[4]));
 
   if (number_of_trials < 1000) {
     std::cout << "Requires number_of_trials set to >= 1000" << std::endl;
@@ -90,45 +95,45 @@ int main(int argc, char** argv) {
                                 std::to_string(max_planes) + "\n\n");
 
       std::cout << "Intersecting Prism by Planes" << std::endl;
-      intersectPrismByPlanes(output_files, number_of_trials, max_planes);
+      intersectPrismByPlanes(output_files, number_of_trials, max_planes, timings_to_produce);
 
       output_files.writeToFiles("\n");
 
       std::cout << "Intersecting Unit Cube by Planes" << std::endl;
-      intersectUnitCubeByPlanes(output_files, number_of_trials, max_planes);
+      intersectUnitCubeByPlanes(output_files, number_of_trials, max_planes, timings_to_produce);
 
       output_files.writeToFiles("\n");
 
       std::cout << "Intersecting Triangulated Prism by Planes" << std::endl;
-      intersectTriPrismByPlanes(output_files, number_of_trials, max_planes);
+      intersectTriPrismByPlanes(output_files, number_of_trials, max_planes, timings_to_produce);
 
       output_files.writeToFiles("\n");
 
       std::cout << "Intersecting Triangulated Hexahedron by Planes"
                 << std::endl;
-      intersectTriHexByPlanes(output_files, number_of_trials, max_planes);
+      intersectTriHexByPlanes(output_files, number_of_trials, max_planes, timings_to_produce);
 
       output_files.writeToFiles("\n");
 
       std::cout << "Intersecting Symmetric Prism by Planes" << std::endl;
-      intersectSymPrismByPlanes(output_files, number_of_trials, max_planes);
+      intersectSymPrismByPlanes(output_files, number_of_trials, max_planes, timings_to_produce);
 
       output_files.writeToFiles("\n");
 
       std::cout << "Intersecting Symmetric Hexahedron by Planes" << std::endl;
-      intersectSymHexByPlanes(output_files, number_of_trials, max_planes);
+      intersectSymHexByPlanes(output_files, number_of_trials, max_planes, timings_to_produce);
 
       output_files.writeToFiles("\n");
 
       std::cout << "Intersecting Stellated Dodecahedron by Planes" << std::endl;
       intersectStelDodecahedronByPlanes(output_files, number_of_trials,
-                                        max_planes);
+                                        max_planes, timings_to_produce);
 
       output_files.writeToFiles("\n");
 
       std::cout << "Intersecting Stellated Icosahedron by Planes" << std::endl;
       intersectStelIcosahedronByPlanes(output_files, number_of_trials,
-                                       max_planes);
+                                       max_planes, timings_to_produce);
 
       break;
     }

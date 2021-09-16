@@ -12,41 +12,49 @@
 // Time intersection with Triangular Prism
 void intersectPrismByPlanes(const Files& a_output_files,
                             const int a_number_of_trials,
-                            const int a_max_planes);
+                            const int a_max_planes,
+			    const int a_timings_to_produce);
 
 // Time intersection with Unit Cube
 void intersectUnitCubeByPlanes(const Files& a_output_files,
                                const int a_number_of_trials,
-                               const int a_max_planes);
+                               const int a_max_planes,
+			       const int a_timings_to_produce);
 
 // Time intersection with Triangulated Triangular Prism
 void intersectTriPrismByPlanes(const Files& a_output_files,
                                const int a_number_of_trials,
-                               const int a_max_planes);
+                               const int a_max_planes,
+			       const int a_timings_to_produce);
 
 // Time intersection with Triangulated Hexahdron
 void intersectTriHexByPlanes(const Files& a_output_files,
                              const int a_number_of_trials,
-                             const int a_max_planes);
+                             const int a_max_planes,
+			     const int a_timings_to_produce);
 
 // Time intersection with Symmetric Triangular Prism
 void intersectSymPrismByPlanes(const Files& a_output_files,
                                const int a_number_of_trials,
-                               const int a_max_planes);
+                               const int a_max_planes,
+			       const int a_timings_to_produce);
 
 // Time intersection with Symmetric Hexahedron
 void intersectSymHexByPlanes(const Files& a_output_files,
                              const int a_number_of_trials,
-                             const int a_max_planes);
+                             const int a_max_planes,
+			     const int a_timings_to_produce);
 
 // Time intersection with Stellated Dodecahedron
 void intersectStelDodecahedronByPlanes(const Files& a_output_files,
                                        const int a_number_of_trials,
-                                       const int a_max_planes);
+                                       const int a_max_planes,
+				       const int a_timings_to_produce);
 
 // Time intersection with Stellated Icosahedron
 void intersectStelIcosahedronByPlanes(const Files& a_output_files,
                                       const int a_number_of_trials,
-                                      const int a_max_planes);
+                                      const int a_max_planes,
+				      const int a_timings_to_produce);
 
 #endif  // SRC_TIMING_COMP_INTERSECTION_TIMING_H_
