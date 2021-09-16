@@ -22,3 +22,5 @@ The executable `timing_comp` expects three command-line arguments (as integers) 
 
 2. The number of trials to run (must be >=1000)
 3. The max number of planes to test for in the plane intersecting polyhedron tests. Has no effect for case options 0 or 2. (must be >=1)
+4. Whether to produce section timings (0), total timings (1), or both (2).
+     Note: This only has an effect if the first input on CLI is 1
